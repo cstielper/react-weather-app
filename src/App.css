@@ -1,0 +1,96 @@
+/* Variables
+  * ========================================================================== */
+:root {
+  --color_brand_1: #000;
+  --color_brand_2: #1d1d1d;
+  --color_brand_3: #328dc9;
+  --color_brand_4: #267cb4;
+  --app_padding: 2rem;
+  --max_content_width: 25rem;
+}
+
+@media (min-width: 750px) and (min-height: 900px) {
+  :root {
+    --max_content_width: 30rem;
+  }
+}
+
+@media (min-width: 1200px) and (min-height: 900px) {
+  :root {
+    --max_content_width: 35rem;
+  }
+}
+
+/* Layout
+  * ========================================================================== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color_brand_2);
+  color: #fff;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.masthead,
+.colophon {
+  position: relative;
+  z-index: 10;
+  padding: 0.625rem 1.25rem;
+}
+
+/* Typography
+  * ========================================================================== */
+html {
+  font-size: 1rem;
+}
+
+@media (min-width: 750px) and (min-height: 900px) {
+  html {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1200px) and (min-height: 900px) {
+  html {
+    font-size: 1.5rem;
+  }
+}
+
+.assistive-text {
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+}
+
+/* Animation
+  * ========================================================================== */
+@keyframes grow {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(1.8);
+  }
+}
