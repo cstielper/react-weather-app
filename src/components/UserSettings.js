@@ -28,7 +28,7 @@ const SettingsWrapper = styled.div`
   h2,
   form {
     width: 100%;
-    max-width: var(--max_content_width);
+    max-width: 20rem;
     margin-left: auto;
     margin-right: auto;
   }

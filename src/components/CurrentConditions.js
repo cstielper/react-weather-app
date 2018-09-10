@@ -15,11 +15,20 @@ const ConditionsWrapper = styled.div`
   h2 {
     margin: 0 0 0.25em;
     font-size: 1em;
-    font-weight: normal;
+    font-weight: bold;
 
     span {
+      font-size: 0.875em;
+      font-weight: normal;
+      display: none;
+    }
+
+    @media (min-height: 750px) {
       font-size: 1.25em;
-      font-weight: bold;
+
+      span {
+        display: inline;
+      }
     }
   }
 
@@ -103,8 +112,10 @@ class CurrentConditions extends Component {
       <ConditionsWrapper>
         <h1>Hello, {this.props.firstName}</h1>
         <h2>
-          Current conditions for: <br />
-          <span>{this.props.current.display_location.full}</span>
+          <span>
+            Current conditions for: <br />
+          </span>
+          {this.props.current.display_location.full}
         </h2>
         <img src={this.props.icons[iconKey]} className="icon" />
         <br />

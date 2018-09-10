@@ -15,6 +15,7 @@ const HeaderWrapper = styled.div`
 
     &:hover {
       cursor: pointer;
+      opacity: 0.75;
     }
 
     &:disabled {

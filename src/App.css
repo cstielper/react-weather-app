@@ -17,7 +17,7 @@
 
 @media (min-width: 1200px) and (min-height: 900px) {
   :root {
-    --max_content_width: 35rem;
+    --max_content_width: 32.5rem;
   }
 }
 
