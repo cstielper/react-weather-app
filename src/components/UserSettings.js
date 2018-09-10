@@ -54,6 +54,7 @@ const SettingsWrapper = styled.div`
     padding: 5px;
     width: 100%;
     font-size: 1.25em;
+    border-radius: 0;
   }
 
   input[type='radio'] {
@@ -65,6 +66,7 @@ const SettingsWrapper = styled.div`
     background: var(--color_brand_3);
     color: #fff;
     border: 0;
+    border-radius: 0;
     text-transform: uppercase;
     transition: 0.25s background, opacity 0.25s;
 
