@@ -18,21 +18,26 @@ const Card = styled.div`
 
 class ForecastCard extends Component {
   render() {
-    const iconKey = this.props.icon;
+    const iconKey = this.props.icon.replace(/-/g, '');
+    const daysOfWeek = {
+      0: 'Sun',
+      1: 'Mon',
+      2: 'Tue',
+      3: 'Wed',
+      4: 'Thu',
+      5: 'Fri',
+      6: 'Sat',
+    };
+    const date = new Date(this.props.time * 1000);
 
     return (
       <Card>
-        <span className="day">{this.props.date.weekday_short}</span>
+        <span className="day">{daysOfWeek[date.getDay()]}</span>
         <br />
-        <img src={this.props.icons[iconKey]} alt={this.props.conditions} />
+        <img src={this.props.icons[iconKey]} alt={this.props.summary} />
         <br />
-        {this.props.units === 'imperial'
-          ? this.props.high.fahrenheit + '\u00b0'
-          : this.props.high.celsius + '\u00b0'}{' '}
-        /{' '}
-        {this.props.units === 'imperial'
-          ? this.props.low.fahrenheit + '\u00b0'
-          : this.props.low.celsius + '\u00b0'}
+        {Math.round(this.props.temperatureHigh) + '\u00b0'}/
+        {Math.round(this.props.temperatureLow) + '\u00b0'}
       </Card>
     );
   }

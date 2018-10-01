@@ -25,12 +25,8 @@ const FooterWrapper = styled.div`
 
 const Footer = () => (
   <FooterWrapper className="colophon">
-    <a href="https://www.wunderground.com/">
-      <span>Powered by Weather Underground</span>{' '}
-      <img
-        src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_rev_horz.png"
-        alt="Weather Underground"
-      />
+    <a href="https://darksky.net/poweredby/">
+      <span>Powered by Dark Sky</span>
     </a>
   </FooterWrapper>
 );

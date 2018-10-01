@@ -16,20 +16,6 @@ const ConditionsWrapper = styled.div`
     margin: 0 0 0.25em;
     font-size: 1em;
     font-weight: bold;
-
-    span {
-      font-size: 0.875em;
-      font-weight: normal;
-      display: none;
-    }
-
-    @media (min-height: 750px) {
-      font-size: 1.25em;
-
-      span {
-        display: inline;
-      }
-    }
   }
 
   .icon {
@@ -66,66 +52,53 @@ const ConditionsWrapper = styled.div`
 
 class CurrentConditions extends Component {
   render() {
-    let temp, feelsLike, dewPoint, precip, wind, pressure, visibility;
+    let wind, pressure, visibility;
 
-    // Set all of our variables based on the user's setting (imperial/metric)
-    this.props.units === 'imperial'
-      ? (temp = Math.round(this.props.current.temp_f) + '\u00b0')
-      : (temp = Math.round(this.props.current.temp_c) + '\u00b0');
+    // Set some variables based on the user's setting (us/si)
+    this.props.units === 'us'
+      ? (wind = Math.round(this.props.current.windSpeed) + ' mph')
+      : (wind = Math.round(this.props.current.windSpeed) + ' mps');
 
-    this.props.units === 'imperial'
-      ? (feelsLike = Math.round(this.props.current.feelslike_f) + '\u00b0')
-      : (feelsLike = Math.round(this.props.current.feelslike_c) + '\u00b0');
+    this.props.units === 'us'
+      ? (pressure = this.props.current.pressure + ' mb')
+      : (pressure = this.props.current.pressure + ' hPa');
 
-    this.props.units === 'imperial'
-      ? (dewPoint = Math.round(this.props.current.dewpoint_f) + '\u00b0')
-      : (dewPoint = Math.round(this.props.current.dewpoint_c) + '\u00b0');
-
-    this.props.units === 'imperial'
-      ? (precip = this.props.current.precip_today_in + ' in')
-      : (precip = this.props.current.precip_today_metric + ' mm');
-
-    this.props.units === 'imperial'
-      ? (wind =
-          this.props.current.wind_dir +
-          ' ' +
-          Math.round(this.props.current.wind_mph) +
-          ' mph')
-      : (wind =
-          this.props.current.wind_dir +
-          ' ' +
-          Math.round(this.props.current.wind_kph) +
-          ' kph');
-
-    this.props.units === 'imperial'
-      ? (pressure = this.props.current.pressure_in + ' in')
-      : (pressure = this.props.current.pressure_mb + ' mb');
-
-    this.props.units === 'imperial'
-      ? (visibility = this.props.current.visibility_mi + ' mi')
-      : (visibility = this.props.current.visibility_km + ' km');
+    this.props.units === 'us'
+      ? (visibility = this.props.current.visibility + ' mi')
+      : (visibility = this.props.current.visibility + ' km');
 
     // Setup our icon
-    const iconKey = this.props.current.icon;
+    const iconKey = this.props.current.icon.replace(/-/g, '');
 
     return (
       <ConditionsWrapper>
         <h1>Hello, {this.props.firstName}</h1>
-        <h2>
-          <span>
-            Current conditions for: <br />
-          </span>
-          {this.props.current.display_location.full}
-        </h2>
-        <img src={this.props.icons[iconKey]} className="icon" />
+        <h2>{this.props.current.summary}</h2>
+        <img
+          src={this.props.icons[iconKey]}
+          className="icon"
+          alt={this.props.current.summary}
+        />
         <br />
-        <span className="temp">{temp}</span>
+        <span className="temp">
+          {Math.round(this.props.current.temperature)}
+          &deg;
+        </span>
         <br />
-        <span className="feels-like">Feels like: {feelsLike}</span>
+        <span className="feels-like">
+          Feels like: {Math.round(this.props.current.apparentTemperature)}
+          &deg;
+        </span>
         <ul>
-          <li>Relative Humidity: {this.props.current.relative_humidity}</li>
-          <li>Dew Point: {dewPoint}</li>
-          <li>Precipitation: {precip}</li>
+          <li>Humidity: {this.props.current.humidity * 100}%</li>
+          <li>
+            Dew Point: {Math.round(this.props.current.dewPoint)}
+            &deg;
+          </li>
+          <li>
+            Chance Precip:{' '}
+            {Math.round(this.props.current.precipProbability) * 100}%
+          </li>
           <li>Wind: {wind}</li>
           <li>Pressure: {pressure}</li>
           <li>Visibility: {visibility}</li>

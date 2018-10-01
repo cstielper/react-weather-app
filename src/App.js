@@ -27,26 +27,16 @@ class App extends Component {
       error: null,
     };
     this.forecastIcons = {
-      chanceflurries: 'imgs/light-snow.svg',
-      chancerain: 'imgs/rain-lt.svg',
-      chancesleet: 'imgs/sleet.svg',
-      chancesnow: 'imgs/light-snow.svg',
-      chancetstorms: 'imgs/thunderstorm.svg',
-      clear: 'imgs/sunny.svg',
+      clearday: 'imgs/sunny.svg',
+      clearnight: 'imgs/clear-night.svg',
+      partlycloudyday: 'imgs/mostly-sunny.svg',
+      partlycloudynight: 'imgs/partly-cloudy-night.svg',
       cloudy: 'imgs/cloudy.svg',
-      flurries: 'imgs/light-snow.svg',
-      fog: 'imgs/fog.svg',
-      hazy: 'imgs/fog.svg',
-      mostlycloudy: 'imgs/mostly-cloudy.svg',
-      mostlysunny: 'imgs/mostly-sunny.svg',
-      partlycloudy: 'imgs/mostly-sunny.svg',
-      partlysunny: 'imgs/mostly-cloudy.svg',
-      sleet: 'imgs/sleet.svg',
       rain: 'imgs/rain-hvy.svg',
+      sleet: 'imgs/sleet.svg',
       snow: 'imgs/hvy-snow.svg',
-      sunny: 'imgs/sunny.svg',
-      tstorms: 'imgs/thunderstorm.svg',
-      unknown: 'imgs/unknown.svg',
+      wind: 'imgs/wind.svg',
+      fog: 'imgs/fog.svg',
     };
   }
 
@@ -73,13 +63,16 @@ class App extends Component {
     this.setState({
       userSettings: settings,
       settingsPane: false,
+      locationChecked: false,
       hasSettings: true,
+      loaded: false,
     });
 
     localStorage.setItem(
       'react-weather-app-user-settings',
       JSON.stringify(settings)
     );
+    this.getLocation();
   };
 
   getLocation = () => {
@@ -93,11 +86,9 @@ class App extends Component {
             this.setState({ locationChecked: true });
 
             fetch(
-              'https://api.wunderground.com/api/590102559464efa9/forecast/conditions/q/' +
-                lat +
-                ',' +
-                lng +
-                '.json'
+              `https://react-weather-app-back-end.herokuapp.com/?lat=${lat}&lng=${lng}&units=${
+                this.state.userSettings.units
+              }`
             )
               .then(resp => resp.json())
               .then(data => this.setState({ data: data, loaded: true }))
@@ -145,16 +136,16 @@ class App extends Component {
 
         {this.state.error ? <Error message={this.state.error} /> : false}
 
-        {Object.keys(this.state.data).length ? (
+        {Object.keys(this.state.data).length && this.state.loaded ? (
           <WeatherWrapper>
             <CurrentConditions
-              current={this.state.data.current_observation}
+              current={this.state.data.currently}
               firstName={this.state.userSettings.firstName}
               units={this.state.userSettings.units}
               icons={this.forecastIcons}
             />
             <Forecast
-              forecast={this.state.data.forecast.simpleforecast.forecastday}
+              forecast={this.state.data.daily}
               units={this.state.userSettings.units}
               icons={this.forecastIcons}
             />

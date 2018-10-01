@@ -52,9 +52,11 @@ const SettingsWrapper = styled.div`
 
   input[type='text'] {
     padding: 5px;
+    margin: 3px 0;
     width: 100%;
     font-size: 1.25em;
     border-radius: 0;
+    border: 0;
   }
 
   input[type='radio'] {
@@ -89,7 +91,7 @@ const SettingsWrapper = styled.div`
 class UserSettings extends Component {
   state = {
     firstName: '',
-    units: 'imperial',
+    units: 'us',
   };
 
   componentDidMount() {
@@ -148,24 +150,24 @@ class UserSettings extends Component {
             <label htmlFor="radio-btn-1">
               <input
                 type="radio"
-                value="imperial"
+                value="us"
                 name="units"
                 id="radio-btn-1"
                 onChange={this.updateUserSettings}
-                checked={this.state.units === 'imperial'}
+                checked={this.state.units === 'us'}
               />
-              &deg;F
+              US
             </label>
             <label htmlFor="radio-btn-2">
               <input
                 type="radio"
-                value="metric"
+                value="si"
                 name="units"
                 id="radio-btn-2"
                 onChange={this.updateUserSettings}
-                checked={this.state.units === 'metric'}
+                checked={this.state.units === 'si'}
               />
-              &deg;C
+              SI
             </label>
           </fieldset>
           <input
