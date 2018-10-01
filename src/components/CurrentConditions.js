@@ -90,7 +90,7 @@ class CurrentConditions extends Component {
           &deg;
         </span>
         <ul>
-          <li>Humidity: {this.props.current.humidity * 100}%</li>
+          <li>Humidity: {Math.round(this.props.current.humidity * 100)}%</li>
           <li>
             Dew Point: {Math.round(this.props.current.dewPoint)}
             &deg;
